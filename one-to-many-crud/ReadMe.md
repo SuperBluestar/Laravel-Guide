@@ -74,32 +74,52 @@ Manually add database to mysql db using SLQyog or phpmyadmin.
 ## Step 5. Route and Controller Works
 First, navigate to routes->web.php and add below code.
 ```
-Route::get('comments', 'CommentsController@commentPost');
+Route::get('posts', [PostsController::class, 'index']);
 ```
-This router means "http://{domail}/comments" in web browser.
+This router means "http://{domail}/posts" in web browser.
 run the below code to create controller
 ```
-php artisan make:controller CommentsController
+php artisan make:controller PostsController
 ```
-You can see the created app->Http->Controllers->CommentsController.php
+You can see the created app->Http->Controllers->PostsController.php
 add some codes like below
 ```
-class CommentsController extends Controller
+class PostsController extends Controller
 {
     // Test
-    public function commentPost()
+    public function index()
     {
 
         $allposts = Post::with('comments')->get();
      
-        return view('index',compact('commentsFirst','commentsSecond','allposts','allcomments'));
+        return view('posts/index',compact('allposts'));
        
     }
 }
 ```
 ## Step 6. Last View Index File
-navigate to resources->views->index.blade.php.
+navigate to resources->views->posts->index.blade.php.
 if not exist, create it.
 change the content like sample.
 
 You can your code using your local server.
+
+
+<h2><b>Laravel One to Many relationship (C)RUD Guide</b></h2>
+This is time to insert data to database in laravel.
+
+We have already installed model and relationships.
+## Step 1. Add route like below
+```
+Route::get('posts/create', [PostsController::class, 'create']);
+Route::post('posts', [PostsController::class, 'store']);
+```
+
+## Step 2. Add contoller handler functions and views
+Controller functions.
+```
+    public function create()
+    {
+        return view('posts/create');
+    }
+```

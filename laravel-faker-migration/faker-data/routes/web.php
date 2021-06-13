@@ -13,14 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
 Route::get('/', function () {
     return view('welcome');
 });
-
-use App\Http\Controllers\PostsController;
-Route::get('posts', [PostsController::class, 'index']);
-Route::get('posts/create', [PostsController::class, 'create']);
-Route::post('posts', [PostsController::class, 'store']);
-Route::get('comments', [CommentsController::class, 'commentPost']);
